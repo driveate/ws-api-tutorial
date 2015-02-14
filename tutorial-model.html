@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Wheel Fitment API Tutorial</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/theme-style.min.css">
+  <link rel="stylesheet" href="css/colour-red.css">
+
+  <link rel="stylesheet" href="css/hljs/default.min.css">
+  <link rel="stylesheet" href="css/hljs/atelier-dune.light.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="page page-index">
+<div id="navigation" class="wrapper">
+  <div class="header" data-toggle="clingify">
+    <div class="header-inner container">
+      <div class="navbar">
+        <div class="pull-left">
+          <a class="navbar-brand" href="/" title="Home">
+            <h1>Wheel Fitment API Tutorial</h1>
+          </a>
+          <div class="slogan">
+            by <a href="http://www.wheel-size.com/">Wheel-Size.com</a>
+          </div>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Tutorial Pages&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="index.html">Overview</a></li>
+                  <li><a href="tutorial-makes.html">List of Manufacturers</a></li>
+                  <li><a href="tutorial-models.html">List of Models</a></li>
+                  <li><a href="tutorial-model.html">Detailed Info About Model</a></li>
+                  <li><a href="tutorial-model-year.html">Detailed Info About Model for Specified Year</a></li>
+                  <li><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>
+                  <li><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
+                  <li><a href="tutorial-tires.html">List of Tires</a></li>
+                  <li><a href="tutorial-tire.html">Models Matching Given Tire</a></li>
+                  <li><a href="tutorial-finder-tire.html">Search By Tire</a></li>
+                  <li><a href="tutorial-finder-rim.html">Search By Rim</a></li>
+                  <li><a href="tutorial-finder-model.html">Search by Model</a></li>
+                </ul>
+              </li>
+
+              <li><a href="https://developer.wheel-size.com/docs">API Documentation&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span></a></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 col-md-push-3 tutorial-content">
+        <div class="tutorial-content">
+          <h2 class="title-divider"><span>Detailed Info About Model</span></h2>
+
+          <p>Here you can find list of model generations and ranges of tire and rim parameters matching this model.</p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/size/chevrolet/aveo/">wheel-size.com/size/chevrolet/aveo/</a></small>
+            <img src="img/ws/ws_model.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <pre class="hljs"><code class="http">GET /v1/models/chevrolet/aveo/ HTTPS/1.1
+Host: api.wheel-size.com
+
+{
+    "make": {
+        "slug": "chevrolet",
+        "name": "Chevrolet"
+    },
+    "model": {
+        "slug": "aveo",
+        "name": "Aveo"
+    },
+    "year": null,
+    "years": [
+        2015,
+        2014,
+        2013,
+        2012,
+        2011,
+        2010,
+        2009,
+        2008,
+        2007,
+        2006,
+        2005,
+        2004,
+        2003
+    ],
+    "generations": [
+        {
+            "name": "II",
+            "bodies": [
+                {
+                    "title": "Saloon",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/cedd767a.jpg"
+                },
+                {
+                    "title": "Hatchback, 5d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/a369e4c0.jpg"
+                }
+            ],
+            "start_year": 2012,
+            "end_year": 2016,
+            "years": [
+                2015,
+                2014,
+                2013,
+                2012
+            ]
+        },
+        {
+            "name": "I Restailing",
+            "bodies": [
+                {
+                    "title": "Hatchback, 5d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/099c0c5b.jpg"
+                },
+                {
+                    "title": "Hatchback, 3d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/d8d59ec9.jpg"
+                },
+                {
+                    "title": "Saloon",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/b0dcf5c6.jpg"
+                }
+            ],
+            "start_year": 2006,
+            "end_year": 2012,
+            "years": [
+                2012,
+                2011,
+                2010,
+                2009,
+                2008,
+                2007,
+                2006
+            ]
+        },
+        {
+            "name": "I",
+            "bodies": [
+                {
+                    "title": "Hatchback, 5d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/c991b0ab.jpg"
+                },
+                {
+                    "title": "Saloon",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/c15c3bc0.jpg"
+                }
+            ],
+            "start_year": 2003,
+            "end_year": 2008,
+            "years": [
+                2008,
+                2007,
+                2006,
+                2005,
+                2004,
+                2003
+            ]
+        }
+    ],
+    "tires": {
+        "aspect_ratio": {
+            "units": "%",
+            "max": 80,
+            "min": 50
+        },
+        "diameter": {
+            "units": "in",
+            "max": 17,
+            "min": 13
+        },
+        "tire_size": {
+            "max": "205/80 R17",
+            "min": "175/50 R13"
+        },
+        "width": {
+            "units": "mm",
+            "max": 205,
+            "min": 175
+        }
+    },
+    "rims": {
+        "4x100": {
+            "diameter": {
+                "units": "in",
+                "max": 15,
+                "min": 13
+            },
+            "offset": {
+                "units": "mm",
+                "max": 45.0,
+                "min": 40.0
+            },
+            "width": {
+                "units": "in",
+                "max": 6.5,
+                "min": 5.5
+            }
+        },
+        "5x105": {
+            "diameter": {
+                "units": "in",
+                "max": 17,
+                "min": 14
+            },
+            "offset": {
+                "units": "mm",
+                "max": 41.5,
+                "min": 39.0
+            },
+            "width": {
+                "units": "in",
+                "max": 6.5,
+                "min": 5.5
+            }
+        }
+    }
+}</code></pre>
+          <p>
+            <span class="label ws-json">make</span> and <span class="label ws-json">model</span>
+            fields have exactly the same sence as in <span class="label ws-api">/makes/</span> and
+            <span class="label ws-api">/models/</span> API methods.
+            <br/>
+            <span class="label ws-json">years</span> list consists of all production years of the model.
+            <br/>
+            Each <span class="label ws-json">generation</span> is described by name, list of bodies
+            (with small image for each body!) and list of production years.
+          </p>
+          <p>
+            <strong>Wheel General Info</strong> from the right column is described by
+            <span class="label ws-json">tires</span> and <span class="label ws-json">rims</span> fields.
+            They contains ranges for most principal characteristics (rims parameters are also grouped by bolt patterns).
+            Each characteristic consists of measurement units, minimal and maximal values among all
+            years and all wheels that could fit this model.
+          </p>
+        </div>
+
+        <div class="post-to-post-pager">
+          <a href="tutorial-models.html" class="pull-left previous">← List of Models</a>
+          <a href="tutorial-model-year.html" class="pull-right next">Detailed Info About Model for Specified Year →</a>
+        </div>
+      </div>
+      <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
+        <div class="inner">
+          <div class="block">
+            <div class="tabbable tabs-left vertical-tabs">
+              <ul class="list-unstyled list-lg tags nav-list">
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-makes.html">List of Manufacturers</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-models.html">List of Models</a></li>
+                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model.html">Detailed Info About Model</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model-year.html">Detailed Info About Model for Specified Year</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tires.html">List of Tires</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tire.html">Models Matching Given Tire</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-tire.html">Search By Tire</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-rim.html">Search By Rim</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-model.html">Search by Model</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="container">
+    <div>Copyright 2015© www.wheel-size.com</div>
+  </div>
+</footer>
+
+<div>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</div>
+</body>
+</html>

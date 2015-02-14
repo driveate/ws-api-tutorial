@@ -1,0 +1,125 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  height: 80px;
+  min-height: 80px;
+  width: 100%;
+  padding: 25px 0;
+}
+
+.sidebar {
+  padding-top: 30px;
+}
+
+.nav-list > li {
+  position: relative;
+  padding-left: 20px;
+}
+
+.nav-list > li.active .fa-angle-right:before {
+  content: "\f101";
+}
+
+.nav-list > li.active a {
+  font-weight: bold;
+}
+
+.nav-list > li > i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.navbar-collapse .dropdown-menu {
+  max-width: none;
+}
+
+.ws-screenshot {
+  margin: 20px 0 0;
+}
+
+.ws-screenshot img {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.ws-screenshot small {
+  display: block;
+}
+
+pre.hljs {
+  font-size: 11px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+pre.hljs .hljs-request {
+  font-size: 15px;
+}
+
+.ws-connect {
+  text-align: center;
+  margin: 12px 0 0;
+  font-size: 30px;
+  line-height: 30px;
+  color: #be3e1d;
+}
+
+.ws-connect.ws-denote .glyphicon {
+  top: 10px;
+}
+
+.tutorial-content p {
+  border-left: 2px solid #be3e1d;
+  padding: 5px 0 5px 15px;
+}
+
+.tutorial-content p.lead {
+  border: none;
+}
+
+.tutorial-pages-link {
+  text-transform: uppercase;
+}
+
+.ws-api {
+  background-color: #be3e1d;
+}
+
+.ws-json {
+  background-color: #f0ad4e;
+}
+
+.ws-query {
+  background-color: #5bc0de;
+}
+
+.ws-image {
+  background-color: #5cb85c;
+}
+
+.header-upper .header-title {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0 10px 0 0;
+}
+
+.header-upper .author {
+  color: #444;
+}
+
+.header-upper .author a {
+  color: #ffffff;
+}

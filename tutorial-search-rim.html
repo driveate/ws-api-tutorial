@@ -47,9 +47,9 @@
                   <li><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
                   <li><a href="tutorial-tires.html">List of Tires</a></li>
                   <li><a href="tutorial-tire.html">Models Matching Given Tire</a></li>
-                  <li><a href="tutorial-finder-tire.html">Search By Tire</a></li>
-                  <li><a href="tutorial-finder-rim.html">Search By Rim</a></li>
-                  <li><a href="tutorial-finder-model.html">Search by Model</a></li>
+                  <li><a href="tutorial-search-tire.html">Search By Tire</a></li>
+                  <li><a href="tutorial-search-rim.html">Search By Rim</a></li>
+                  <li><a href="tutorial-search-model.html">Search by Model</a></li>
                 </ul>
               </li>
 
@@ -66,58 +66,57 @@
     <div class="row">
       <div class="col-md-9 col-md-push-3 tutorial-content">
         <div class="tutorial-content">
-          <h2 class="title-divider"><span>Overview</span></h2>
-          <p class="lead">
-            You are looking at the <a href="https://developer.wheel-size.com/docs">API Documentation</a>
-            and still don't know how it may be useful for your needs?
-          </p>
-          <p class="lead">Let's learn it by comparing API data with information on the <a href="http://www.wheel-size.com/">site</a>.</p>
-          <p>
-            Each part of this tutorial arranged so that you need three simple steps to understand API methods:
-            <br/>
-            <br/>
-            <span>1.
-              Look at the screenshot from <span>wheel-size.com</span>.
-              Each screenshot contains one self-sufficient information block.
-            </span>
-            <br/>
-            <span>2.
-              Learn API method calls and returned data that fit this screenshot.
-            </span>
-            <br/>
-            <span>3.
-              Compare the data returned by API call and what you see on the image above and read auxiliary comments.
-            </span>
-          </p>
+          <h2 class="title-divider"><span>Search By Rim</span></h2>
 
+          <div class="ws-screenshot">
+            <small>
+              Screenshot source: <a href="http://www.wheel-size.com/">wheel-size.com</a>,
+              choose <strong>By Tire Rim</strong> block in search form and make a search
+            </small>
+            <img src="img/ws/ws_finder_7.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
           <p>
-            Following visualization sings are useful to understand tutorial information:
+            As in <a class="tutorial-pages-link" href="tutorial-search-tire.html">Search By Tire</a> this is just a proxy to
+            <span class="label ws-api">/bolt-pattern/</span> API method.
             <br/>
-            <br/>
-            <span class="label ws-image">tire</span> denotes data from screenshot
-            <br/>
-            <span class="label ws-json">name</span> denotes field from JSON
-            <br/>
-            <span class="label ws-query">make</span> denotes parameter from API method
-            <br/>
-            <span class="label ws-api">/models/</span> denotes API method
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-resize-vertical"></span></span>
-            connects screenshot with corresponding JSON
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-arrow-down"></span></span>
-            means beginning of the next logical block
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-info-sign"></span></span>
-            denotes a block with some additional information
+            You can see <a class="tutorial-pages-link" href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a> for more information.
           </p>
+          <pre class="hljs"><code class="http">GET /v1/search/by_rim/?rim_diameter=16&amp;rim_width=7&amp;bolt_pattern=5x112 HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "make": {
+            "slug": "audi",
+            "name": "Audi"
+        },
+        "models": [
+            {
+                "slug": "a3",
+                "name": "A3"
+            },
+            {
+                "slug": "a4",
+                "name": "A4"
+            },
+            {
+                "slug": "a6",
+                "name": "A6"
+            },
+            {
+                "slug": "a8",
+                "name": "A8"
+            }
+        ]
+    },
+    ...
+]</code></pre>
         </div>
 
         <div class="post-to-post-pager">
-          <a href="tutorial-makes.html" class="pull-right next">List of Manufacturers →</a>
+          <a href="tutorial-search-tire.html" class="pull-left previous">← Search By Tire</a>
+          <a href="tutorial-search-model.html" class="pull-right next">Search By Model →</a>
         </div>
       </div>
       <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
@@ -125,7 +124,7 @@
           <div class="block">
             <div class="tabbable tabs-left vertical-tabs">
               <ul class="list-unstyled list-lg tags nav-list">
-                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-makes.html">List of Manufacturers</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-models.html">List of Models</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model.html">Detailed Info About Model</a></li>
@@ -134,9 +133,9 @@
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tires.html">List of Tires</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tire.html">Models Matching Given Tire</a></li>
-                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-tire.html">Search By Tire</a></li>
-                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-rim.html">Search By Rim</a></li>
-                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-model.html">Search by Model</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-search-tire.html">Search By Tire</a></li>
+                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-search-rim.html">Search By Rim</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-search-model.html">Search by Model</a></li>
               </ul>
             </div>
           </div>

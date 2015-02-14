@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/default.min.css">
+  <link rel="stylesheet" href="css/atelier-dune.light.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h1>Wheel Fitment API Tutorial</h1>
+    </div>
+
+    <div class="row">
+      <ul class="tutor-nav col-md-3 nav nav-pills nav-stacked">
+        <li role="presentation" class="active"><a href="#tutor-overview" data-toggle="tab">Overview</a></li>
+        <li role="presentation"><a href="#tutor-makes" data-toggle="tab">List of Manufacturers</a></li>
+        <li role="presentation"><a href="#tutor-models" data-toggle="tab">List of Models</a></li>
+        <li role="presentation"><a href="#tutor-model" data-toggle="tab">Detailed Info About Model</a></li>
+        <li role="presentation"><a href="#tutor-model-year" data-toggle="tab">Detailed Info About Model for Specified Year</a></li>
+        <li role="presentation"><a href="#tutor-bolt-patterns" data-toggle="tab">List of Bolt Patterns</a></li>
+        <li role="presentation"><a href="#tutor-bolt-pattern" data-toggle="tab">Models Matching Given Bolt Pattern</a></li>
+        <li role="presentation"><a href="#tutor-tires" data-toggle="tab">List of Tires</a></li>
+        <li role="presentation"><a href="#tutor-tire" data-toggle="tab">Models Matching Given Tire</a></li>
+        <li role="presentation"><a href="#tutor-finder-tire" data-toggle="tab">Search By Tire</a></li>
+        <li role="presentation"><a href="#tutor-finder-rim" data-toggle="tab">Search By Rim</a></li>
+        <li role="presentation"><a href="#tutor-finder-model" data-toggle="tab">Search by Model</a></li>
+      </ul>
+
+      <div class="tab-content col-md-9">
+        <div role="tabpanel" class="tab-pane active" id="tutor-overview">
+          <h2 class="title-divider"><span>Overview</span></h2>
+          <p>
+            You are looking at the <a href="https://developer.wheel-size.com/docs">API Documentation</a>
+            and still don't know how it may be useful for your needs?
+          </p>
+          <p>Let's learn it by comparing API data with information on the site <a href="http://www.wheel-size.com/"></a></p>
+          <p>
+            Each part of this tutorial arranged so that you need three simple steps to understand API methods:
+            <ol>
+              <li>
+                Look at the screenshot from <span>wheel-size.com</span>.
+                Each screenshot contains one self-sufficient information block.
+              </li>
+              <li>
+                Learn API method calls and returned data that fit this screenshot.
+              </li>
+              <li>
+                Compare the data returned by API call and what you see on the image above and read auxiliary comments.
+              </li>
+            </ol>
+          </p>
+        </div>
+
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-makes">
+          <h2 class="title-divider"><span>List of Manufacturers</span></h2>
+
+          <p>
+            This is just list of all automobile manufacturers presented in our database.
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/">wheel-size.com</a>, at the bottom of the page</small>
+            <img src="img/ws/ws_makes.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+
+          <p>
+            <span class="label ws-json">name</span> can be used to display manufacturer as human-readable string
+            <br/>
+            <span class="label ws-json">slug</span> should be used in api calls whenever
+            <span class="label ws-query">make</span> query parameter is used, e.g. in
+            <span class="label ws-api">/models/</span> API method.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/makes/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "acura",
+        "name": "Acura"
+    },
+    {
+        "slug": "alfa-romeo",
+        "name": "Alfa Romeo"
+    },
+    {
+        "slug": "aston-martin",
+        "name": "Aston Martin"
+    },
+    {
+        "slug": "audi",
+        "name": "Audi"
+    },
+    ...
+]</code></pre>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-models">
+          <h2 class="title-divider"><span>List of Models</span></h2>
+
+          <p>List of all models for given manufacturer</p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/size/chevrolet/">wheel-size.com/size/chevrolet/</a></small>
+            <img src="img/ws/ws_models.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            <span class="label ws-json">name</span> can be used to display model as human-readable string
+            <br/>
+            <span class="label ws-json">slug</span> should be used in api calls whenever
+            <span class="label ws-query">model</span> query parameter is used, e.g. in
+            <span class="label ws-api">/vehicles/</span> API method.
+            Also model slug value utilized as <span class="label ws-query">slug</span> path parameter in
+            <span class="label ws-api">/models/{make}/{slug}/{year}/</span> API method.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/models/?make=chevrolet HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "1500-truck",
+        "name": "1500 truck"
+    },
+    {
+        "slug": "2500-truck",
+        "name": "2500 truck"
+    },
+    {
+        "slug": "3500-truck",
+        "name": "3500 truck"
+    },
+    {
+        "slug": "astro",
+        "name": "Astro"
+    },
+    {
+        "slug": "avalanche",
+        "name": "Avalanche"
+    },
+    ...
+]</code></pre>
+        </div>
+
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-model">
+          <h2 class="title-divider"><span>Detailed Info About Model</span></h2>
+
+          <p>Here you can find list of model generations and ranges of tire and rim parameters matching this model.</p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/size/chevrolet/aveo/">wheel-size.com/size/chevrolet/aveo/</a></small>
+            <img src="img/ws/ws_model.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <pre class="hljs"><code class="http">GET /v1/models/chevrolet/aveo/ HTTPS/1.1
+Host: api.wheel-size.com
+
+{
+    "make": {
+        "slug": "chevrolet",
+        "name": "Chevrolet"
+    },
+    "model": {
+        "slug": "aveo",
+        "name": "Aveo"
+    },
+    "year": null,
+    "years": [
+        2015,
+        2014,
+        2013,
+        2012,
+        2011,
+        2010,
+        2009,
+        2008,
+        2007,
+        2006,
+        2005,
+        2004,
+        2003
+    ],
+    "generations": [
+        {
+            "name": "II",
+            "bodies": [
+                {
+                    "title": "Saloon",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/cedd767a.jpg"
+                },
+                {
+                    "title": "Hatchback, 5d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/a369e4c0.jpg"
+                }
+            ],
+            "start_year": 2012,
+            "end_year": 2016,
+            "years": [
+                2015,
+                2014,
+                2013,
+                2012
+            ]
+        },
+        {
+            "name": "I Restailing",
+            "bodies": [
+                {
+                    "title": "Hatchback, 5d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/099c0c5b.jpg"
+                },
+                {
+                    "title": "Hatchback, 3d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/d8d59ec9.jpg"
+                },
+                {
+                    "title": "Saloon",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/b0dcf5c6.jpg"
+                }
+            ],
+            "start_year": 2006,
+            "end_year": 2012,
+            "years": [
+                2012,
+                2011,
+                2010,
+                2009,
+                2008,
+                2007,
+                2006
+            ]
+        },
+        {
+            "name": "I",
+            "bodies": [
+                {
+                    "title": "Hatchback, 5d",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/c991b0ab.jpg"
+                },
+                {
+                    "title": "Saloon",
+                    "image": "https://automobile-assets.s3.amazonaws.com/automobile/body/c15c3bc0.jpg"
+                }
+            ],
+            "start_year": 2003,
+            "end_year": 2008,
+            "years": [
+                2008,
+                2007,
+                2006,
+                2005,
+                2004,
+                2003
+            ]
+        }
+    ],
+    "tires": {
+        "aspect_ratio": {
+            "units": "%",
+            "max": 80,
+            "min": 50
+        },
+        "diameter": {
+            "units": "in",
+            "max": 17,
+            "min": 13
+        },
+        "tire_size": {
+            "max": "205/80 R17",
+            "min": "175/50 R13"
+        },
+        "width": {
+            "units": "mm",
+            "max": 205,
+            "min": 175
+        }
+    },
+    "rims": {
+        "4x100": {
+            "diameter": {
+                "units": "in",
+                "max": 15,
+                "min": 13
+            },
+            "offset": {
+                "units": "mm",
+                "max": 45.0,
+                "min": 40.0
+            },
+            "width": {
+                "units": "in",
+                "max": 6.5,
+                "min": 5.5
+            }
+        },
+        "5x105": {
+            "diameter": {
+                "units": "in",
+                "max": 17,
+                "min": 14
+            },
+            "offset": {
+                "units": "mm",
+                "max": 41.5,
+                "min": 39.0
+            },
+            "width": {
+                "units": "in",
+                "max": 6.5,
+                "min": 5.5
+            }
+        }
+    }
+}</code></pre>
+          <p>
+            <span class="label ws-json">make</span> and <span class="label ws-json">model</span>
+            fields have exactly the same sence as in <span class="label ws-api">/makes/</span> and
+            <span class="label ws-api">/models/</span> API methods.
+            <br/>
+            <span class="label ws-json">years</span> list consists of all production years of the model.
+            <br/>
+            Each <span class="label ws-json">generation</span> is described by name, list of bodies
+            (with small image for each body!) and list of production years.
+          </p>
+          <p>
+            <strong>Wheel General Info</strong> from the right column is described by
+            <span class="label ws-json">tires</span> and <span class="label ws-json">rims</span> fields.
+            They contains ranges for most principal characteristics (rims parameters are also grouped by bolt patterns).
+            Each characteristic consists of measurement units, minimal and maximal values among all
+            years and all wheels that could fit this model.
+          </p>
+        </div>
+
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-model-year">
+          <h2 class="title-divider"><span>Detailed Info About Model for Specified Year</span></h2>
+
+          <p>
+            This page contains two separate information blocks:
+            <br/>
+            <strong>Wheel Fitment Info</strong> is almost the same as described in previous chapter
+            <br/>
+            <strong>Alloy Wheel Fitment Guide</strong> contains list of rims and tires matching
+            given model and grouped by model modifications (trims).
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/size/chevrolet/aveo/2014/">wheel-size.com/size/chevrolet/aveo/2014/</a></small>
+            <img src="img/ws/ws_model_year.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            <span class="label ws-json">make</span>, <span class="label ws-json">model</span>,
+            <span class="label ws-json">years</span>, and <span class="label ws-json">generations</span>
+            repeat correspoding fields from the <span class="label ws-api">/models/{make}/{slug}/</span>
+            API method (without specific year). See <a href="#">Detailed Info About Model</a> for more information.
+            <br/>
+            <span class="label ws-json">tires</span> and <span class="label ws-json">rims</span>
+            have the same structure but here all ranges are calculated for given year.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/models/chevrolet/aveo/2014/ HTTPS/1.1
+Host: api.wheel-size.com
+
+{
+    "make": {
+        "slug": "chevrolet",
+        "name": "Chevrolet"
+    },
+    "model": {
+        "slug": "aveo",
+        "name": "Aveo"
+    },
+    "year": 2014,
+    "years": [...],
+    "generations": [...],
+    "tires": {
+        "aspect_ratio": {
+            "units": "%",
+            "max": 80,
+            "min": 50
+        },
+        "diameter": {
+            "units": "in",
+            "max": 17,
+            "min": 14
+        },
+        "tire_size": {
+            "max": "205/80 R17",
+            "min": "175/50 R14"
+        },
+        "width": {
+            "units": "mm",
+            "max": 205,
+            "min": 175
+        }
+    },
+    "rims": {
+        "5x105": {
+            "diameter": {
+                "units": "in",
+                "max": 17,
+                "min": 14
+            },
+            "offset": {
+                "units": "mm",
+                "max": 41.5,
+                "min": 39.0
+            },
+            "width": {
+                "units": "in",
+                "max": 6.5,
+                "min": 5.5
+            }
+        }
+    }
+}</code></pre>
+          <div class="ws-connect"><span class="glyphicon glyphicon-plus"></span></div>
+          <pre class="hljs"><code class="http">GET /v1/vehicles/?make=chevrolet&amp;model=aveo&amp;&amp;year=2014 HTTPS/1.1
+Host: api.wheel-size.com
+[
+    {
+        "market": {
+            "abbr": "EUDM",
+            "name": "European domestic market"
+        },
+        "body": null,
+        "trim": "1.4",
+        "stud_holes": 5,
+        "pcd": 105.0,
+        "centre_bore": 56.5,
+        "lock_type": "nut",
+        "lock_text": "M12 x 1.5",
+        "bolt_pattern": "5x105",
+        "wheels": [
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "5.5Jx14 ET39",
+                    "rim_diameter": 14,
+                    "rim_width": 5.5,
+                    "rim_offset": 39.0,
+                    "tire": "185/75 R14",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 185,
+                    "tire_aspect_ratio": 75,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "6Jx15 ET39",
+                    "rim_diameter": 15,
+                    "rim_width": 6.0,
+                    "rim_offset": 39.0,
+                    "tire": "195/65 R15",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 195,
+                    "tire_aspect_ratio": 65,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": null,
+                    "tire_construction": null,
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": false,
+                "front": {
+                    "rim": "6Jx16 ET39",
+                    "rim_diameter": 16,
+                    "rim_width": 6.0,
+                    "rim_offset": 39.0,
+                    "tire": "205/55 R16",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 205,
+                    "tire_aspect_ratio": 55,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": null,
+                    "tire_construction": null,
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "6.5Jx17 ET41.5",
+                    "rim_diameter": 17,
+                    "rim_width": 6.5,
+                    "rim_offset": 41.5,
+                    "tire": "205/50 R17",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 205,
+                    "tire_aspect_ratio": 50,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "5.5Jx14 ET39",
+                    "rim_diameter": 14,
+                    "rim_width": 5.5,
+                    "rim_offset": 39.0,
+                    "tire": "175/80 R14",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 175,
+                    "tire_aspect_ratio": 80,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            }
+        ]
+    },
+    ...
+]
+</code></pre>
+          <p>
+            This API method returns list of vehicles.
+            Each <span class="label ws-json">vehicle</span> consists of wheels list
+            and principal vehicle characteristics.
+            <br/>
+            Take a look at the first table with 5 rows.
+            <span class="label ws-image">tire</span> and <span class="label ws-image">rim</span>
+            columns are filled from <span class="label ws-json">wheel</span> objects;
+            all other columns are filled by vehicle fields and they are the same for each row.
+          </p>
+          <div class="ws-connect"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
+          <p>
+            If you need only list of trims (e.g. for navigation block), you can use
+            <span class="label ws-api">/trims/</span> API method.
+            You can see that <span class="label ws-json">slug</span>
+            and <span class="label ws-json">name</span> are always the same.
+            <span class="label ws-json">slug</span> field here is just to keep uniform way
+            to present list of same-type resources.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/trims/?make=chevrolet&amp;model=aveo&amp;&amp;year=2014 HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "1.4",
+        "name": "1.4"
+    },
+    {
+        "slug": "1.2",
+        "name": "1.2"
+    },
+    {
+        "slug": "1.6",
+        "name": "1.6"
+    },
+    {
+        "slug": "1.4 Turbo",
+        "name": "1.4 Turbo"
+    }
+]</code></pre>
+        </div>
+
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-bolt-patterns">
+          <h2 class="title-divider"><span>List of Bolt Patterns</span></h2>
+          
+          <p>
+            List of all possible bolt patterns presented in our database.
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/pcd/">wheel-size.com/pcd/</a></small>
+            <img src="img/ws/ws_bolt_patterns.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            <span class="label ws-json">count</span> field shows how many models have this bolt pattern
+            which allows you to create tag cloud or sort bolt patterns by popularity.
+            <br/>
+            <span class="label ws-json">pattern</span> field should be used as
+            <span class="label ws-query">bolt_pattern</span> query or path paremeter where it is needed.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/bolt-patterns/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "pattern": "3x112",
+        "stud": 3,
+        "pcd": 112,
+        "count": 3
+    },
+    {
+        "pattern": "4x98",
+        "stud": 4,
+        "pcd": 98,
+        "count": 141
+    },
+    {
+        "pattern": "4x100",
+        "stud": 4,
+        "pcd": 100,
+        "count": 1947
+    },
+    ...
+]</code></pre>
+        </div>
+
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-bolt-pattern">
+          <h2 class="title-divider"><span>Models Matching Given Bolt Pattern</span></h2>
+
+          <p>
+            List of all models matching specified bolt pattern. All models are grouped by manufacturer.
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/pcd/5x110/">wheel-size.com/pcd/5x110/</a></small>
+            <img src="img/ws/ws_bolt_pattern.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            The same <span class="label ws-json">make</span> and <span class="label ws-json">model</span>
+            are just combined in groups.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/bolt-patterns/5x110/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "make": {
+            "slug": "alfa-romeo",
+            "name": "Alfa Romeo"
+        },
+        "models": [
+            {
+                "slug": "159",
+                "name": "159"
+            },
+            {
+                "slug": "8c",
+                "name": "8C"
+            },
+            {
+                "slug": "brera",
+                "name": "Brera"
+            },
+            {
+                "slug": "giulietta",
+                "name": "Giulietta"
+            },
+            {
+                "slug": "spider",
+                "name": "Spider"
+            }
+        ]
+    },
+    {
+        "make": {
+            "slug": "cadillac",
+            "name": "Cadillac"
+        },
+        "models": [
+            {
+                "slug": "bls",
+                "name": "BLS"
+            },
+            {
+                "slug": "catera",
+                "name": "Catera"
+            }
+        ]
+    },
+    ...
+]</code></pre>
+        </div>
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-tires">
+          <h2 class="title-divider"><span>List of Tires</span></h2>
+
+          <p>
+            List of all possible tires presented in our database.
+            <br/>
+            Similar to <a href="#">List of Bolt Patterns</a> but for tires.
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/tire/">wheel-size.com/tire/</a></small>
+            <img src="img/ws/ws_tires.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            <span class="label ws-json">count</span> field shows how many models have this tire
+            which allows you to create tag cloud or sort tires by popularity.
+            <br/>
+            <span class="label ws-json">tire</span> field should be used as
+            <span class="label ws-query">tire</span> query or path paremeter where it is needed.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/tires/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "tire": "75/195R14",
+        "width": 75,
+        "aspect_ratio": 195,
+        "rim_diameter": 14,
+        "count": 1
+    },
+    {
+        "tire": "135/80R12",
+        "width": 135,
+        "aspect_ratio": 80,
+        "rim_diameter": 12,
+        "count": 20
+    },
+    {
+        "tire": "135/80R13",
+        "width": 135,
+        "aspect_ratio": 80,
+        "rim_diameter": 13,
+        "count": 22
+    },
+    ...
+]</code></pre>
+        </div>
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-tire">
+          <h2 class="title-divider"><span>Models Matching Given Tire</span></h2>
+
+          <p>
+            List of all models matching specified tire. All models are grouped by manufacturer.
+            <br/>
+            Similar to <a href="#">Models Matching Given Bolt Pattern</a> but for tires.
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/tire/195/65R15/">wheel-size.com/tire/195/65R15/</a></small>
+            <img src="img/ws/ws_tire.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            The same <span class="label ws-json">make</span> and <span class="label ws-json">model</span>
+            are just combined in groups.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/tires/195/65R15/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "make": {
+            "slug": "alfa-romeo",
+            "name": "Alfa Romeo"
+        },
+        "models": [
+            {
+                "slug": "gt",
+                "name": "GT"
+            }
+        ]
+    },
+    {
+        "make": {
+            "slug": "audi",
+            "name": "Audi"
+        },
+        "models": [
+            {
+                "slug": "100",
+                "name": "100"
+            },
+            {
+                "slug": "80",
+                "name": "80"
+            },
+            {
+                "slug": "a3",
+                "name": "A3"
+            },
+            {
+                "slug": "a4",
+                "name": "A4"
+            },
+            {
+                "slug": "a6",
+                "name": "A6"
+            }
+        ]
+    },
+    ...
+]</code></pre>
+        </div>
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-finder-tire">
+          <h2 class="title-divider"><span>Search By Tire</span></h2>
+
+          <div class="ws-screenshot">
+            <small>
+              Screenshot source: <a href="http://www.wheel-size.com/">wheel-size.com</a>,
+              choose <strong>By Tire Size</strong> block in search form and make a search
+            </small>
+            <img src="img/ws/ws_finder_6.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            Looks like models matching given tire?
+            <br/>
+            Yes, this method is just a proxy to <span class="label ws-api">/tires/</span>.
+            The only difference is parameters type.
+            <br/>
+            So you can see <a href="#">Models Matching Given Tire</a> for more information.
+            <br/>
+            Use this method if you have tire splitted for three parameters,
+            and use <span class="label ws-api">/tires/</span> if you have whole tire parameter.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/search/by_tire/?tire_width=215&amp;aspect_ratio=60&amp;rim_diameter=17 HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "make": {
+            "slug": "bmw",
+            "name": "BMW"
+        },
+        "models": [
+            {
+                "slug": "x3",
+                "name": "X3"
+            }
+        ]
+    },
+    {
+        "make": {
+            "slug": "chery",
+            "name": "Chery"
+        },
+        "models": [
+            {
+                "slug": "tiggo",
+                "name": "Tiggo"
+            }
+        ]
+    },
+    {
+        "make": {
+            "slug": "chrysler",
+            "name": "Chrysler"
+        },
+        "models": [
+            {
+                "slug": "sebring",
+                "name": "Sebring"
+            }
+        ]
+    },
+    ...
+]</code></pre>
+        </div>
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-finder-rim">
+          <h2 class="title-divider"><span>Search By Rim</span></h2>
+
+          <div class="ws-screenshot">
+            <small>
+              Screenshot source: <a href="http://www.wheel-size.com/">wheel-size.com</a>,
+              choose <strong>By Tire Rim</strong> block in search form and make a search
+            </small>
+            <img src="img/ws/ws_finder_7.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            As in <a href="#">Search By Tire</a> this is just a proxy to
+            <span class="label ws-api">/bolt-pattern/</span> API method.
+            <br/>
+            You can see <a href="#">Models Matching Given Bolt Pattern</a> for more information.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/search/by_rim/?rim_diameter=16&amp;rim_width=7&amp;bolt_pattern=5x112 HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "make": {
+            "slug": "audi",
+            "name": "Audi"
+        },
+        "models": [
+            {
+                "slug": "a3",
+                "name": "A3"
+            },
+            {
+                "slug": "a4",
+                "name": "A4"
+            },
+            {
+                "slug": "a6",
+                "name": "A6"
+            },
+            {
+                "slug": "a8",
+                "name": "A8"
+            }
+        ]
+    },
+    ...
+]</code></pre>
+        </div>
+        <div role="tabpanel" class="tab-pane tutor-content" id="tutor-finder-model">
+          <h2 class="title-divider"><span>Search By Model</span></h2>
+
+          <p>
+            In the final chapter let's take a look how to build more complicated module with chain of api calls.
+            <br/>
+            If you play <strong>By Vehicle</strong> search block, you can see that
+            <span class="label ws-image">Year</span> and <span class="label ws-image">Model</span>
+            dropdowns refreshed with data matching choosed parameters.
+            Let's repeat this functionality.
+          </p>
+
+          <div class="ws-screenshot"><img src="img/ws/ws_finder_1.png"/></div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-arrow-down"></span></div>
+
+          <div class="ws-screenshot"><img src="img/ws/ws_finder_2.png"/></div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            This is just <a href="#">List of Manufacturers</a>.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/makes/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "acura",
+        "name": "Acura"
+    },
+    {
+        "slug": "alfa-romeo",
+        "name": "Alfa Romeo"
+    },
+    {
+        "slug": "aston-martin",
+        "name": "Aston Martin"
+    },
+    {
+        "slug": "audi",
+        "name": "Audi"
+    },
+    ...
+]</code></pre>
+
+          <p>
+            Use <span class="label ws-json">slug</span> of the manufacturer as
+            <span class="label ws-query">make</span> query parameter for
+            <span class="label ws-api">/years/</span> API method.
+          </p>
+
+          <div class="ws-connect"><span class="glyphicon glyphicon-arrow-down"></span></div>
+          <div class="ws-screenshot"><img src="img/ws/ws_finder_3.png"/></div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            This is list of years matching given manufacturer.
+            You can see that <span class="label ws-json">slug</span>
+            and <span class="label ws-json">name</span> are always the same.
+            <br/>
+            <span class="label ws-json">slug</span> field here is just to keep uniform way
+            to present list of same-type resources.
+          </p>
+
+          <pre class="hljs"><code class="http">GET /v1/years/?make=chevrolet HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": 2015,
+        "name": 2015
+    },
+    {
+        "slug": 2014,
+        "name": 2014
+    },
+    {
+        "slug": 2013,
+        "name": 2013
+    },
+    {
+        "slug": 2012,
+        "name": 2012
+    },
+    {
+        "slug": 2011,
+        "name": 2011
+    },
+    ...
+]</code></pre>
+          <p>
+            Use <span class="label ws-json">slug</span> of the manufacturer as
+            <span class="label ws-query">make</span>
+            and <span class="label ws-json">slug</span> of the year as
+            <span class="label ws-query">year</span>
+            query parameters for <span class="label ws-api">/models/</span> API method.
+          </p>
+
+          <div class="ws-connect"><span class="glyphicon glyphicon-arrow-down"></span></div>
+          <div class="ws-screenshot"><img src="img/ws/ws_finder_4.png"/></div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            This is <a href="#">List of Models</a>.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/models/?make=chevrolet&amp;year=2014 HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "avalanche-1500",
+        "name": "Avalanche 1500"
+    },
+    {
+        "slug": "avalanche-2500",
+        "name": "Avalanche 2500"
+    },
+    {
+        "slug": "aveo",
+        "name": "Aveo"
+    },
+    {
+        "slug": "camaro",
+        "name": "Camaro"
+    },
+    {
+        "slug": "cobalt",
+        "name": "Cobalt"
+    },
+    {
+        "slug": "colorado",
+        "name": "Colorado"
+    },
+    {
+        "slug": "corvette",
+        "name": "Corvette"
+    },
+    ...
+]</code></pre>
+          <p>
+            Use <span class="label ws-json">slug</span> of the manufacturer as
+            <span class="label ws-query">make</span>,
+            <span class="label ws-json">slug</span> of the year as
+            <span class="label ws-query">year</span>, and
+            <span class="label ws-json">slug</span> of the model as
+            <span class="label ws-query">model</span>
+            query parameters for <span class="label ws-api">/search/by_model/</span> API method.
+          </p>
+
+          <div class="ws-connect"><span class="glyphicon glyphicon-arrow-down"></span></div>
+          <div class="ws-screenshot"><img src="img/ws/ws_finder_5.png"/></div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+
+          <p>
+            <span class="label ws-api">/search/by_model/</span> is exactle the same as
+            <span class="label ws-api">/vehicles/</span> method.
+            <br/>
+            Another name created just for purposes of convenience.
+            <br/>
+            See <a href="#">Detailed Info About Model for Specified Year</a> for more information.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/search/by_model/?make=chevrolet&amp;year=2014&amp;model=aveo HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "market": {
+            "abbr": "EUDM",
+            "name": "European domestic market"
+        },
+        "body": null,
+        "trim": "1.4",
+        "stud_holes": 5,
+        "pcd": 105.0,
+        "centre_bore": 56.5,
+        "lock_type": "nut",
+        "lock_text": "M12 x 1.5",
+        "bolt_pattern": "5x105",
+        "wheels": [
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "5.5Jx14 ET39",
+                    "rim_diameter": 14,
+                    "rim_width": 5.5,
+                    "rim_offset": 39.0,
+                    "tire": "185/75 R14",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 185,
+                    "tire_aspect_ratio": 75,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            ...
+        ]
+    },
+    ...
+]</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

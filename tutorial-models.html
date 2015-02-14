@@ -66,58 +66,55 @@
     <div class="row">
       <div class="col-md-9 col-md-push-3 tutorial-content">
         <div class="tutorial-content">
-          <h2 class="title-divider"><span>Overview</span></h2>
-          <p class="lead">
-            You are looking at the <a href="https://developer.wheel-size.com/docs">API Documentation</a>
-            and still don't know how it may be useful for your needs?
-          </p>
-          <p class="lead">Let's learn it by comparing API data with information on the <a href="http://www.wheel-size.com/">site</a>.</p>
-          <p>
-            Each part of this tutorial arranged so that you need three simple steps to understand API methods:
-            <br/>
-            <br/>
-            <span>1.
-              Look at the screenshot from <span>wheel-size.com</span>.
-              Each screenshot contains one self-sufficient information block.
-            </span>
-            <br/>
-            <span>2.
-              Learn API method calls and returned data that fit this screenshot.
-            </span>
-            <br/>
-            <span>3.
-              Compare the data returned by API call and what you see on the image above and read auxiliary comments.
-            </span>
-          </p>
+          <h2 class="title-divider"><span>List of Models</span></h2>
 
+          <p>List of all models for given manufacturer</p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/size/chevrolet/">wheel-size.com/size/chevrolet/</a></small>
+            <img src="img/ws/ws_models.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
           <p>
-            Following visualization sings are useful to understand tutorial information:
+            <span class="label ws-json">name</span> can be used to display model as human-readable string
             <br/>
-            <br/>
-            <span class="label ws-image">tire</span> denotes data from screenshot
-            <br/>
-            <span class="label ws-json">name</span> denotes field from JSON
-            <br/>
-            <span class="label ws-query">make</span> denotes parameter from API method
-            <br/>
-            <span class="label ws-api">/models/</span> denotes API method
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-resize-vertical"></span></span>
-            connects screenshot with corresponding JSON
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-arrow-down"></span></span>
-            means beginning of the next logical block
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-info-sign"></span></span>
-            denotes a block with some additional information
+            <span class="label ws-json">slug</span> should be used in api calls whenever
+            <span class="label ws-query">model</span> query parameter is used, e.g. in
+            <span class="label ws-api">/vehicles/</span> API method.
+            Also model slug value utilized as <span class="label ws-query">slug</span> path parameter in
+            <span class="label ws-api">/models/{make}/{slug}/{year}/</span> API method.
           </p>
+          <pre class="hljs"><code class="http">GET /v1/models/?make=chevrolet HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "1500-truck",
+        "name": "1500 truck"
+    },
+    {
+        "slug": "2500-truck",
+        "name": "2500 truck"
+    },
+    {
+        "slug": "3500-truck",
+        "name": "3500 truck"
+    },
+    {
+        "slug": "astro",
+        "name": "Astro"
+    },
+    {
+        "slug": "avalanche",
+        "name": "Avalanche"
+    },
+    ...
+]</code></pre>
         </div>
 
         <div class="post-to-post-pager">
-          <a href="tutorial-makes.html" class="pull-right next">List of Manufacturers →</a>
+          <a href="tutorial-makes.html" class="pull-left previous">← List of Manufacturers</a>
+          <a href="tutorial-model.html" class="pull-right next">Detailed Info About Model →</a>
         </div>
       </div>
       <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
@@ -125,9 +122,9 @@
           <div class="block">
             <div class="tabbable tabs-left vertical-tabs">
               <ul class="list-unstyled list-lg tags nav-list">
-                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-makes.html">List of Manufacturers</a></li>
-                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-models.html">List of Models</a></li>
+                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-models.html">List of Models</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model.html">Detailed Info About Model</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model-year.html">Detailed Info About Model for Specified Year</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>

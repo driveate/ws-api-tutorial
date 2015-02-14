@@ -66,58 +66,53 @@
     <div class="row">
       <div class="col-md-9 col-md-push-3 tutorial-content">
         <div class="tutorial-content">
-          <h2 class="title-divider"><span>Overview</span></h2>
-          <p class="lead">
-            You are looking at the <a href="https://developer.wheel-size.com/docs">API Documentation</a>
-            and still don't know how it may be useful for your needs?
-          </p>
-          <p class="lead">Let's learn it by comparing API data with information on the <a href="http://www.wheel-size.com/">site</a>.</p>
-          <p>
-            Each part of this tutorial arranged so that you need three simple steps to understand API methods:
-            <br/>
-            <br/>
-            <span>1.
-              Look at the screenshot from <span>wheel-size.com</span>.
-              Each screenshot contains one self-sufficient information block.
-            </span>
-            <br/>
-            <span>2.
-              Learn API method calls and returned data that fit this screenshot.
-            </span>
-            <br/>
-            <span>3.
-              Compare the data returned by API call and what you see on the image above and read auxiliary comments.
-            </span>
-          </p>
+          <h2 class="title-divider"><span>List of Bolt Patterns</span></h2>
 
           <p>
-            Following visualization sings are useful to understand tutorial information:
-            <br/>
-            <br/>
-            <span class="label ws-image">tire</span> denotes data from screenshot
-            <br/>
-            <span class="label ws-json">name</span> denotes field from JSON
-            <br/>
-            <span class="label ws-query">make</span> denotes parameter from API method
-            <br/>
-            <span class="label ws-api">/models/</span> denotes API method
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-resize-vertical"></span></span>
-            connects screenshot with corresponding JSON
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-arrow-down"></span></span>
-            means beginning of the next logical block
-            <br/>
-            <br/>
-            <span class="ws-connect ws-denote"><span class="glyphicon glyphicon-info-sign"></span></span>
-            denotes a block with some additional information
+            List of all possible bolt patterns presented in our database.
           </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/pcd/">wheel-size.com/pcd/</a></small>
+            <img src="img/ws/ws_bolt_patterns.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            <span class="label ws-json">count</span> field shows how many models have this bolt pattern
+            which allows you to create tag cloud or sort bolt patterns by popularity.
+            <br/>
+            <span class="label ws-json">pattern</span> field should be used as
+            <span class="label ws-query">bolt_pattern</span> query or path paremeter where it is needed.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/bolt-patterns/ HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "pattern": "3x112",
+        "stud": 3,
+        "pcd": 112,
+        "count": 3
+    },
+    {
+        "pattern": "4x98",
+        "stud": 4,
+        "pcd": 98,
+        "count": 141
+    },
+    {
+        "pattern": "4x100",
+        "stud": 4,
+        "pcd": 100,
+        "count": 1947
+    },
+    ...
+]</code></pre>
         </div>
 
         <div class="post-to-post-pager">
-          <a href="tutorial-makes.html" class="pull-right next">List of Manufacturers →</a>
+          <a href="tutorial-model-year.html" class="pull-left previous">← Detailed Info About Model for Specified Year</a>
+          <a href="tutorial-bolt-pattern.html" class="pull-right next">Models Matching Given Bolt Pattern →</a>
         </div>
       </div>
       <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
@@ -125,12 +120,12 @@
           <div class="block">
             <div class="tabbable tabs-left vertical-tabs">
               <ul class="list-unstyled list-lg tags nav-list">
-                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-makes.html">List of Manufacturers</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-models.html">List of Models</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model.html">Detailed Info About Model</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model-year.html">Detailed Info About Model for Specified Year</a></li>
-                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>
+                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tires.html">List of Tires</a></li>
                 <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tire.html">Models Matching Given Tire</a></li>

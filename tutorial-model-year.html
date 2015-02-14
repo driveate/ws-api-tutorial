@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Wheel Fitment API Tutorial</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/theme-style.min.css">
+  <link rel="stylesheet" href="css/colour-red.css">
+
+  <link rel="stylesheet" href="css/hljs/default.min.css">
+  <link rel="stylesheet" href="css/hljs/atelier-dune.light.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="page page-index">
+<div id="navigation" class="wrapper">
+  <div class="header" data-toggle="clingify">
+    <div class="header-inner container">
+      <div class="navbar">
+        <div class="pull-left">
+          <a class="navbar-brand" href="/" title="Home">
+            <h1>Wheel Fitment API Tutorial</h1>
+          </a>
+          <div class="slogan">
+            by <a href="http://www.wheel-size.com/">Wheel-Size.com</a>
+          </div>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Tutorial Pages&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="index.html">Overview</a></li>
+                  <li><a href="tutorial-makes.html">List of Manufacturers</a></li>
+                  <li><a href="tutorial-models.html">List of Models</a></li>
+                  <li><a href="tutorial-model.html">Detailed Info About Model</a></li>
+                  <li><a href="tutorial-model-year.html">Detailed Info About Model for Specified Year</a></li>
+                  <li><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>
+                  <li><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
+                  <li><a href="tutorial-tires.html">List of Tires</a></li>
+                  <li><a href="tutorial-tire.html">Models Matching Given Tire</a></li>
+                  <li><a href="tutorial-finder-tire.html">Search By Tire</a></li>
+                  <li><a href="tutorial-finder-rim.html">Search By Rim</a></li>
+                  <li><a href="tutorial-finder-model.html">Search by Model</a></li>
+                </ul>
+              </li>
+
+              <li><a href="https://developer.wheel-size.com/docs">API Documentation&nbsp;&nbsp;<span class="glyphicon glyphicon-new-window"></span></a></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 col-md-push-3 tutorial-content">
+        <div class="tutorial-content">
+          <h2 class="title-divider"><span>Detailed Info About Model for Specified Year</span></h2>
+
+          <p>
+            This page contains two separate information blocks:
+            <br/>
+            <strong>Wheel Fitment Info</strong> is almost the same as described in previous chapter
+            <br/>
+            <strong>Alloy Wheel Fitment Guide</strong> contains list of rims and tires matching
+            given model and grouped by model modifications (trims).
+          </p>
+
+          <div class="ws-screenshot">
+            <small>Screenshot source: <a href="http://www.wheel-size.com/size/chevrolet/aveo/2014/">wheel-size.com/size/chevrolet/aveo/2014/</a></small>
+            <img src="img/ws/ws_model_year.png"/>
+          </div>
+          <div class="ws-connect"><span class="glyphicon glyphicon-resize-vertical"></span></div>
+          <p>
+            <span class="label ws-json">make</span>, <span class="label ws-json">model</span>,
+            <span class="label ws-json">years</span>, and <span class="label ws-json">generations</span>
+            repeat correspoding fields from the <span class="label ws-api">/models/{make}/{slug}/</span>
+            API method (without specific year).
+            <br/>
+            See <a class="tutorial-pages-link" href="tutorial-model.html">Detailed Info About Model</a> for more information.
+          </p>
+          <p>
+            <span class="label ws-json">tires</span> and <span class="label ws-json">rims</span>
+            have the same structure but here all ranges are calculated for given year.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/models/chevrolet/aveo/2014/ HTTPS/1.1
+Host: api.wheel-size.com
+
+{
+    "make": {
+        "slug": "chevrolet",
+        "name": "Chevrolet"
+    },
+    "model": {
+        "slug": "aveo",
+        "name": "Aveo"
+    },
+    "year": 2014,
+    "years": [...],
+    "generations": [...],
+    "tires": {
+        "aspect_ratio": {
+            "units": "%",
+            "max": 80,
+            "min": 50
+        },
+        "diameter": {
+            "units": "in",
+            "max": 17,
+            "min": 14
+        },
+        "tire_size": {
+            "max": "205/80 R17",
+            "min": "175/50 R14"
+        },
+        "width": {
+            "units": "mm",
+            "max": 205,
+            "min": 175
+        }
+    },
+    "rims": {
+        "5x105": {
+            "diameter": {
+                "units": "in",
+                "max": 17,
+                "min": 14
+            },
+            "offset": {
+                "units": "mm",
+                "max": 41.5,
+                "min": 39.0
+            },
+            "width": {
+                "units": "in",
+                "max": 6.5,
+                "min": 5.5
+            }
+        }
+    }
+}</code></pre>
+          <div class="ws-connect"><span class="glyphicon glyphicon-plus"></span></div>
+          <pre class="hljs"><code class="http">GET /v1/vehicles/?make=chevrolet&amp;model=aveo&amp;&amp;year=2014 HTTPS/1.1
+Host: api.wheel-size.com
+[
+    {
+        "market": {
+            "abbr": "EUDM",
+            "name": "European domestic market"
+        },
+        "body": null,
+        "trim": "1.4",
+        "stud_holes": 5,
+        "pcd": 105.0,
+        "centre_bore": 56.5,
+        "lock_type": "nut",
+        "lock_text": "M12 x 1.5",
+        "bolt_pattern": "5x105",
+        "wheels": [
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "5.5Jx14 ET39",
+                    "rim_diameter": 14,
+                    "rim_width": 5.5,
+                    "rim_offset": 39.0,
+                    "tire": "185/75 R14",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 185,
+                    "tire_aspect_ratio": 75,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "6Jx15 ET39",
+                    "rim_diameter": 15,
+                    "rim_width": 6.0,
+                    "rim_offset": 39.0,
+                    "tire": "195/65 R15",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 195,
+                    "tire_aspect_ratio": 65,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": null,
+                    "tire_construction": null,
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": false,
+                "front": {
+                    "rim": "6Jx16 ET39",
+                    "rim_diameter": 16,
+                    "rim_width": 6.0,
+                    "rim_offset": 39.0,
+                    "tire": "205/55 R16",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 205,
+                    "tire_aspect_ratio": 55,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": null,
+                    "tire_construction": null,
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "6.5Jx17 ET41.5",
+                    "rim_diameter": 17,
+                    "rim_width": 6.5,
+                    "rim_offset": 41.5,
+                    "tire": "205/50 R17",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 205,
+                    "tire_aspect_ratio": 50,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            },
+            {
+                "showing_fp_only": true,
+                "is_stock": true,
+                "front": {
+                    "rim": "5.5Jx14 ET39",
+                    "rim_diameter": 14,
+                    "rim_width": 5.5,
+                    "rim_offset": 39.0,
+                    "tire": "175/80 R14",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": 175,
+                    "tire_aspect_ratio": 80,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                },
+                "rear": {
+                    "rim": "",
+                    "rim_diameter": null,
+                    "rim_width": null,
+                    "rim_offset": null,
+                    "tire": "",
+                    "tire_sizing_system": "metric",
+                    "tire_construction": "R",
+                    "tire_width": null,
+                    "tire_aspect_ratio": null,
+                    "tire_diameter": null,
+                    "tire_section_width": null,
+                    "tire_is_82series": false
+                }
+            }
+        ]
+    },
+    ...
+]
+</code></pre>
+          <p>
+            This API method returns list of vehicles.
+            Each <span class="label ws-json">vehicle</span> consists of wheels list
+            and principal vehicle characteristics.
+            <br/>
+            Take a look at the first table with 5 rows.
+            <span class="label ws-image">tire</span> and <span class="label ws-image">rim</span>
+            columns are filled from <span class="label ws-json">wheel</span> objects;
+            all other columns are filled by vehicle fields and they are the same for each row.
+          </p>
+          <div class="ws-connect"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
+          <p>
+            If you need only list of trims (e.g. for navigation block), you can use
+            <span class="label ws-api">/trims/</span> API method.
+            You can see that <span class="label ws-json">slug</span>
+            and <span class="label ws-json">name</span> are always the same.
+            <span class="label ws-json">slug</span> field here is just to keep uniform way
+            to present list of same-type resources.
+          </p>
+          <pre class="hljs"><code class="http">GET /v1/trims/?make=chevrolet&amp;model=aveo&amp;&amp;year=2014 HTTPS/1.1
+Host: api.wheel-size.com
+
+[
+    {
+        "slug": "1.4",
+        "name": "1.4"
+    },
+    {
+        "slug": "1.2",
+        "name": "1.2"
+    },
+    {
+        "slug": "1.6",
+        "name": "1.6"
+    },
+    {
+        "slug": "1.4 Turbo",
+        "name": "1.4 Turbo"
+    }
+]</code></pre>
+        </div>
+
+        <div class="post-to-post-pager">
+          <a href="tutorial-model.html" class="pull-left previous">← Detailed Info About Model</a>
+          <a href="tutorial-bolt-patterns.html" class="pull-right next">List of Bolt Patterns →</a>
+        </div>
+      </div>
+      <div class="col-md-3 col-md-pull-9 sidebar sidebar-left">
+        <div class="inner">
+          <div class="block">
+            <div class="tabbable tabs-left vertical-tabs">
+              <ul class="list-unstyled list-lg tags nav-list">
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="index.html">Overview</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-makes.html">List of Manufacturers</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-models.html">List of Models</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model.html">Detailed Info About Model</a></li>
+                <li class="active"><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-model-year.html">Detailed Info About Model for Specified Year</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-patterns.html">List of Bolt Patterns</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-bolt-pattern.html">Models Matching Given Bolt Pattern</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tires.html">List of Tires</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-tire.html">Models Matching Given Tire</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-tire.html">Search By Tire</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-rim.html">Search By Rim</a></li>
+                <li><i class="fa fa-angle-right fa-fw"></i><a href="tutorial-finder-model.html">Search by Model</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="container">
+    <div>Copyright 2015© www.wheel-size.com</div>
+  </div>
+</footer>
+
+<div>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</div>
+</body>
+</html>
